@@ -1452,10 +1452,28 @@ function closeModal() {
 document.getElementById('modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
-function submitForm() {
-  alert('Thank you! I\'ll be in touch within 24 hours ✈️');
-  closeModal();
-}
+async function submitForm() {
+     const data = {
+       name: document.querySelector('input[placeholder="Jane Smith"]').value,
+       email: document.querySelector('input[placeholder="jane@email.com"]').value,
+       budget: document.querySelector('select').value,
+       destination: document.querySelector('input[placeholder="Japan, Iceland, Maldives..."]').value,
+       message: document.querySelector('textarea').value,
+     };
+
+     const response = await fetch('https://formspree.io/f/xykblbnl', {
+       method: 'POST',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify(data)
+     });
+
+     if (response.ok) {
+       alert('Thank you! I\'ll be in touch within 24 hours ✈️');
+       closeModal();
+     } else {
+       alert('Something went wrong. Please email me directly at hello@tripzenix.com');
+     }
+   }
 </script>
 </body>
 </html>
