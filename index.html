@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TripZenix — Travel Your Way</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sand: #f5ede0;
+  --deep: #1a1208;
+  --gold: #c9963a;
+  --gold-light: #e8b86d;
+  --moss: #3d4a2e;
+  --terracotta: #c2673b;
+  --sky: #a8c5d8;
+  --cream: #faf6f0;
+  --text: #2c2416;
+  --muted: #8a7d6b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(26,18,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,150,58,0.2);
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem; font-weight: 600; color: var(--gold-light);
+  letter-spacing: 0.04em; cursor: pointer;
+}
+.nav-logo span { color: var(--terracotta); font-style: italic; }
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: rgba(245,237,224,0.8); text-decoration: none;
+  font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+  font-weight: 500; transition: color 0.3s;
+  cursor: pointer;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+
+.nav-cta {
+  background: var(--gold); color: var(--deep);
+  border: none; padding: 0.6rem 1.4rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
+  font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.3s;
+}
+.nav-cta:hover { background: var(--gold-light); }
+
+/* ─── PAGES ─── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ─── HOME HERO ─── */
+.hero {
+  height: 100vh; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background: 
+    linear-gradient(to bottom, rgba(26,18,8,0.45) 0%, rgba(26,18,8,0.2) 40%, rgba(26,18,8,0.7) 100%),
+    url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1800&q=80') center/cover;
+  transform: scale(1.05);
+  animation: slowZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes slowZoom {
+  from { transform: scale(1.05); }
+  to { transform: scale(1.12); }
+}
+
+.hero-content {
+  position: relative; text-align: center; color: white;
+  padding: 0 2rem;
+  animation: fadeUp 1.2s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-tag {
+  display: inline-block;
+  font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: 1.5rem;
+  border-top: 1px solid rgba(201,150,58,0.5);
+  border-bottom: 1px solid rgba(201,150,58,0.5);
+  padding: 0.4rem 1.2rem;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: 300; line-height: 0.95;
+  margin-bottom: 1.5rem; letter-spacing: -0.01em;
+}
+.hero h1 em { font-style: italic; color: var(--gold-light); }
+
+.hero p {
+  font-size: 1.05rem; color: rgba(255,255,255,0.78);
+  max-width: 520px; margin: 0 auto 2.5rem;
+  line-height: 1.7; font-weight: 300;
+}
+
+.hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+.btn-primary {
+  background: var(--gold); color: var(--deep);
+  padding: 0.9rem 2.2rem; border: none;
+  font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+  font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.3s;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+.btn-outline {
+  background: transparent; color: white;
+  padding: 0.9rem 2.2rem; border: 1px solid rgba(255,255,255,0.5);
+  font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+  font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.3s;
+}
+.btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+.hero-scroll {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  color: rgba(255,255,255,0.6); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+}
+.scroll-line {
+  width: 1px; height: 60px; background: rgba(255,255,255,0.3);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(0.6); }
+}
+
+/* ─── SECTION COMMONS ─── */
+section { padding: 6rem 3rem; }
+
+.section-label {
+  font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.section-label::before {
+  content: ''; width: 30px; height: 1px; background: var(--gold);
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem); font-weight: 400;
+  line-height: 1.1; margin-bottom: 1.2rem;
+}
+
+.section-sub {
+  color: var(--muted); font-size: 0.95rem;
+  line-height: 1.7; max-width: 500px; font-weight: 300;
+}
+
+/* ─── PHOTO GRID (Home) ─── */
+.photo-grid-section { background: var(--deep); color: white; }
+.photo-grid-section .section-title { color: white; }
+.photo-grid-section .section-sub { color: rgba(255,255,255,0.5); }
+
+.photo-mosaic {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(3, 200px);
+  gap: 0.6rem; margin-top: 3rem;
+}
+
+.mosaic-item {
+  overflow: hidden; position: relative;
+  cursor: pointer;
+}
+.mosaic-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.mosaic-item:hover img { transform: scale(1.08); }
+.mosaic-item .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,18,8,0.7) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+  display: flex; align-items: flex-end; padding: 1rem;
+}
+.mosaic-item:hover .overlay { opacity: 1; }
+.overlay-text {
+  color: white; font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-weight: 400;
+}
+
+.m1 { grid-column: 1/5; grid-row: 1/3; }
+.m2 { grid-column: 5/8; grid-row: 1/2; }
+.m3 { grid-column: 8/13; grid-row: 1/2; }
+.m4 { grid-column: 5/9; grid-row: 2/4; }
+.m5 { grid-column: 9/13; grid-row: 2/3; }
+.m6 { grid-column: 1/5; grid-row: 3/4; }
+.m7 { grid-column: 9/13; grid-row: 3/4; }
+
+/* ─── SERVICES STRIP ─── */
+.services-strip {
+  background: var(--sand);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0; padding: 0;
+}
+.service-card {
+  padding: 3rem 2rem;
+  border-right: 1px solid rgba(139,125,107,0.2);
+  transition: background 0.3s;
+  cursor: pointer;
+}
+.service-card:last-child { border-right: none; }
+.service-card:hover { background: var(--gold); }
+.service-card:hover .svc-icon, .service-card:hover h3, .service-card:hover p { color: var(--deep); }
+
+.svc-icon { font-size: 2rem; margin-bottom: 1rem; }
+.service-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--deep);
+}
+.service-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+/* ─── ABOUT STRIP ─── */
+.about-home {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center;
+}
+.about-img-wrap { position: relative; }
+.about-img-wrap img { width: 100%; height: 500px; object-fit: cover; }
+.about-img-wrap::after {
+  content: ''; position: absolute;
+  bottom: -20px; right: -20px;
+  width: 60%; height: 60%;
+  border: 2px solid var(--gold); z-index: -1;
+}
+.stat-row { display: flex; gap: 2rem; margin-top: 2.5rem; }
+.stat { border-left: 2px solid var(--gold); padding-left: 1rem; }
+.stat strong {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem; color: var(--gold); display: block; line-height: 1;
+}
+.stat span { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* ─── DESTINATIONS PAGE ─── */
+.page-hero {
+  height: 55vh; position: relative;
+  display: flex; align-items: flex-end; padding: 4rem 3rem;
+  overflow: hidden;
+}
+.page-hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-size: cover; background-position: center;
+}
+.page-hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,18,8,0.85) 0%, rgba(26,18,8,0.3) 100%);
+}
+.page-hero-content { position: relative; z-index: 1; color: white; }
+.page-hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+.page-hero p { color: rgba(255,255,255,0.7); font-size: 1rem; font-weight: 300; }
+
+/* ─── DEST CARDS ─── */
+.dest-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2rem; padding: 4rem 3rem;
+}
+.dest-card {
+  position: relative; overflow: hidden;
+  cursor: pointer; group: true;
+  border: 1px solid rgba(139,125,107,0.15);
+  transition: box-shadow 0.3s;
+}
+.dest-card:hover { box-shadow: 0 20px 60px rgba(26,18,8,0.15); }
+.dest-card img {
+  width: 100%; height: 280px; object-fit: cover;
+  transition: transform 0.6s ease;
+  display: block;
+}
+.dest-card:hover img { transform: scale(1.05); }
+.dest-card-body { padding: 1.5rem; background: white; }
+.dest-badge {
+  display: inline-block; background: var(--moss); color: white;
+  font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.25rem 0.7rem; margin-bottom: 0.8rem;
+}
+.dest-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; margin-bottom: 0.4rem; color: var(--deep);
+}
+.dest-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+.dest-rating { color: var(--gold); font-size: 0.85rem; }
+.dest-rating span { color: var(--muted); margin-left: 0.3rem; }
+
+/* ─── SERVICES PAGE ─── */
+.services-page { padding: 4rem 3rem; }
+.services-intro { max-width: 700px; margin: 0 auto 4rem; text-align: center; }
+
+.service-tabs { display: flex; justify-content: center; gap: 0; margin-bottom: 3rem; border: 1px solid rgba(139,125,107,0.3); width: fit-content; margin: 0 auto 3rem; }
+.service-tab {
+  padding: 0.8rem 2rem; cursor: pointer;
+  font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+  border: none; background: transparent; color: var(--muted);
+  border-right: 1px solid rgba(139,125,107,0.3); transition: all 0.3s;
+  font-family: 'DM Sans', sans-serif;
+}
+.service-tab:last-child { border-right: none; }
+.service-tab.active { background: var(--deep); color: var(--gold-light); }
+.service-tab:hover:not(.active) { background: var(--sand); color: var(--deep); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.cars-grid, .stays-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+
+.car-card, .stay-card {
+  border: 1px solid rgba(139,125,107,0.15);
+  overflow: hidden; background: white;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.car-card:hover, .stay-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(26,18,8,0.12);
+}
+.car-card img, .stay-card img {
+  width: 100%; height: 200px; object-fit: cover; display: block;
+}
+.car-body, .stay-body { padding: 1.2rem; }
+.car-body h4, .stay-body h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; margin-bottom: 0.3rem; color: var(--deep);
+}
+.car-body p, .stay-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; margin-bottom: 0.8rem; }
+.price-tag {
+  font-weight: 500; color: var(--terracotta); font-size: 1rem;
+}
+.price-tag small { font-size: 0.7rem; color: var(--muted); font-weight: 400; }
+
+/* ─── TRIP PLANS PAGE ─── */
+.plans-page { padding: 4rem 3rem; background: var(--cream); }
+.plans-intro { max-width: 640px; margin: 0 auto 4rem; text-align: center; }
+
+.budget-selector { text-align: center; margin-bottom: 4rem; }
+.budget-selector h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; margin-bottom: 1.5rem; }
+.budget-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+.budget-btn {
+  padding: 0.8rem 2rem; border: 1px solid rgba(139,125,107,0.4);
+  background: white; font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
+  color: var(--text);
+}
+.budget-btn.active, .budget-btn:hover { background: var(--deep); color: var(--gold-light); border-color: var(--deep); }
+
+.plan-card {
+  background: white; border: 1px solid rgba(139,125,107,0.15);
+  display: grid; grid-template-columns: 1fr 2fr;
+  margin-bottom: 2rem; overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.plan-card:hover { box-shadow: 0 12px 40px rgba(26,18,8,0.1); }
+.plan-card img { width: 100%; height: 100%; min-height: 250px; object-fit: cover; display: block; }
+.plan-body { padding: 2rem; }
+.plan-tier {
+  display: inline-block; font-size: 0.65rem; letter-spacing: 0.15em;
+  text-transform: uppercase; padding: 0.3rem 0.8rem;
+  margin-bottom: 1rem;
+}
+.tier-budget { background: #e8f5e9; color: #2e7d32; }
+.tier-mid { background: #fff3e0; color: #e65100; }
+.tier-luxury { background: #f3e5f5; color: #6a1b9a; }
+
+.plan-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; margin-bottom: 0.5rem; }
+.plan-body p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.2rem; }
+.plan-details { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.plan-detail { font-size: 0.8rem; color: var(--muted); }
+.plan-detail strong { color: var(--deep); display: block; font-size: 0.95rem; }
+.plan-price { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); }
+.plan-price small { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; color: var(--muted); }
+
+.contact-plan-btn {
+  background: var(--deep); color: var(--gold-light);
+  border: none; padding: 0.8rem 1.8rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.3s; margin-top: 1rem;
+}
+.contact-plan-btn:hover { background: var(--moss); }
+
+/* ─── BLOG PAGE ─── */
+.blog-page { padding: 4rem 3rem; }
+.blog-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; margin-top: 3rem; }
+.blog-main { display: flex; flex-direction: column; gap: 2.5rem; }
+.blog-card {
+  display: grid; grid-template-columns: 280px 1fr;
+  border: 1px solid rgba(139,125,107,0.15);
+  background: white; overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.blog-card:hover { box-shadow: 0 8px 30px rgba(26,18,8,0.1); }
+.blog-card img { width: 100%; height: 100%; min-height: 200px; object-fit: cover; display: block; }
+.blog-card-body { padding: 1.8rem; }
+.blog-cat {
+  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.6rem;
+}
+.blog-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 0.5rem; line-height: 1.3; }
+.blog-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+.blog-meta { font-size: 0.75rem; color: var(--muted); }
+
+.blog-sidebar { display: flex; flex-direction: column; gap: 2rem; }
+.sidebar-widget { background: white; padding: 1.5rem; border: 1px solid rgba(139,125,107,0.15); }
+.widget-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+  margin-bottom: 1rem; padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(139,125,107,0.2);
+}
+
+.social-links { display: flex; flex-direction: column; gap: 0.8rem; }
+.social-link {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.7rem; background: var(--sand);
+  text-decoration: none; color: var(--text);
+  font-size: 0.85rem; transition: background 0.3s;
+}
+.social-link:hover { background: var(--gold); color: var(--deep); }
+.social-icon { font-size: 1.1rem; width: 1.5rem; text-align: center; }
+
+.email-widget { background: var(--deep); color: white; padding: 1.5rem; }
+.email-widget h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--gold-light); }
+.email-widget p { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-bottom: 1rem; }
+.email-widget a { color: var(--gold-light); font-size: 0.9rem; text-decoration: none; border-bottom: 1px solid rgba(201,150,58,0.4); }
+
+/* ─── MAP / VISITED PAGE ─── */
+.visited-page { padding: 0; }
+.map-placeholder {
+  height: 400px; background: var(--deep);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.world-map {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; color: rgba(255,255,255,0.3); letter-spacing: 0.05em;
+}
+.map-pins {
+  position: absolute; inset: 0;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1200px-World_map_-_low_resolution.svg.png') center/contain no-repeat;
+  opacity: 0.15;
+}
+.map-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.map-overlay h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: white; margin-bottom: 0.5rem; }
+.map-overlay p { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+
+.countries-bar {
+  display: flex; gap: 0; background: var(--sand); overflow-x: auto;
+  border-bottom: 1px solid rgba(139,125,107,0.2);
+}
+.country-chip {
+  flex-shrink: 0; padding: 0.8rem 1.5rem;
+  font-size: 0.78rem; letter-spacing: 0.05em;
+  border-right: 1px solid rgba(139,125,107,0.2);
+  cursor: pointer; transition: background 0.3s;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.country-chip:hover, .country-chip.active { background: var(--deep); color: var(--gold-light); }
+
+.visited-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; padding: 3rem; gap: 1.5rem; }
+.visited-card {
+  overflow: hidden; position: relative;
+  border: 1px solid rgba(139,125,107,0.15);
+}
+.visited-card img { width: 100%; height: 220px; object-fit: cover; display: block; transition: transform 0.5s; }
+.visited-card:hover img { transform: scale(1.06); }
+.visited-card-info { padding: 1.2rem; background: white; }
+.visited-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; margin-bottom: 0.2rem; }
+.visited-card p { font-size: 0.78rem; color: var(--muted); }
+.visited-flag { font-size: 1.2rem; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--deep); color: white;
+  padding: 4rem 3rem 2rem;
+}
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.footer-brand .nav-logo { display: block; margin-bottom: 1rem; font-size: 1.5rem; }
+.footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.7; max-width: 260px; }
+.footer-col h5 { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 0.6rem; }
+.footer-col ul a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; cursor: pointer; }
+.footer-col ul a:hover { color: var(--gold-light); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+
+/* ─── NEWSLETTER BANNER ─── */
+.newsletter-banner {
+  background: var(--moss); padding: 4rem 3rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  flex-wrap: wrap;
+}
+.nl-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: white; margin-bottom: 0.3rem; }
+.nl-text p { color: rgba(255,255,255,0.65); font-size: 0.9rem; }
+.nl-form { display: flex; gap: 0; }
+.nl-input {
+  padding: 0.9rem 1.5rem; border: none; background: rgba(255,255,255,0.12);
+  color: white; font-size: 0.85rem; width: 280px;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+}
+.nl-input::placeholder { color: rgba(255,255,255,0.4); }
+.nl-btn {
+  padding: 0.9rem 1.5rem; background: var(--gold); border: none;
+  color: var(--deep); font-size: 0.8rem; letter-spacing: 0.1em;
+  text-transform: uppercase; font-family: 'DM Sans', sans-serif;
+  cursor: pointer; transition: background 0.3s; font-weight: 500;
+}
+.nl-btn:hover { background: var(--gold-light); }
+
+/* ─── CONTACT MODAL ─── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(26,18,8,0.8); z-index: 9999;
+  align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: white; padding: 3rem; max-width: 500px; width: 90%;
+  position: relative;
+}
+.modal h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin-bottom: 0.5rem; }
+.modal p { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--muted);
+}
+.form-group { margin-bottom: 1.2rem; }
+.form-group label { display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 0.8rem 1rem;
+  border: 1px solid rgba(139,125,107,0.3); background: var(--cream);
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  color: var(--text); outline: none;
+  transition: border-color 0.3s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+.form-group textarea { min-height: 100px; resize: vertical; }
+.form-submit {
+  width: 100%; background: var(--deep); color: var(--gold-light);
+  border: none; padding: 1rem; font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.3s;
+}
+.form-submit:hover { background: var(--moss); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .dest-grid, .cars-grid, .stays-grid { grid-template-columns: repeat(2,1fr); }
+  .visited-grid { grid-template-columns: repeat(2,1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .about-home { grid-template-columns: 1fr; gap: 3rem; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .blog-card { grid-template-columns: 1fr; }
+  .plan-card { grid-template-columns: 1fr; }
+  .services-strip { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  section { padding: 4rem 1.5rem; }
+  .dest-grid, .cars-grid, .stays-grid, .visited-grid { grid-template-columns: 1fr; }
+  .services-strip { grid-template-columns: 1fr; }
+  .photo-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .m1,.m2,.m3,.m4,.m5,.m6,.m7 { grid-column: auto; grid-row: auto; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .nl-form { flex-direction: column; }
+  .nl-input { width: 100%; }
+  .hero h1 { font-size: 3rem; }
+  .budget-btns { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">Trip<span>Zenix</span></div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('destinations')" id="nav-destinations">Places I Visited</a></li>
+    <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
+    <li><a onclick="showPage('plans')" id="nav-plans">Trip Plans</a></li>
+    <li><a onclick="showPage('blog')" id="nav-blog">Blog</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openModal()">Plan My Trip</button>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-tag">✦ Curated Travel Experiences</div>
+      <h1>Discover the<br><em>World's</em> Wonders</h1>
+      <p>From hidden mountain villages to sun-drenched coastlines — TripZenix crafts journeys that stay with you forever.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('plans')">Start Planning</button>
+        <button class="btn-outline" onclick="showPage('destinations')">Explore Destinations</button>
+      </div>
+    </div>
+    <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+  </section>
+
+  <!-- SERVICES STRIP -->
+  <div class="services-strip">
+    <div class="service-card" onclick="showPage('services'); switchTab('cars')">
+      <div class="svc-icon">🚗</div>
+      <h3>Car Rentals</h3>
+      <p>Handpicked rental partners with the best deals across the globe.</p>
+    </div>
+    <div class="service-card" onclick="showPage('services'); switchTab('stays')">
+      <div class="svc-icon">🏡</div>
+      <h3>Cabins & Airbnbs</h3>
+      <p>Unique stays — from lakeside cabins to city lofts we personally recommend.</p>
+    </div>
+    <div class="service-card" onclick="showPage('plans')">
+      <div class="svc-icon">🗺️</div>
+      <h3>Full Trip Plans</h3>
+      <p>Custom itineraries tailored to your budget, pace, and dream destinations.</p>
+    </div>
+    <div class="service-card" onclick="showPage('destinations')">
+      <div class="svc-icon">📍</div>
+      <h3>Visited & Loved</h3>
+      <p>Real recommendations from places I've explored personally.</p>
+    </div>
+  </div>
+
+  <!-- PHOTO MOSAIC -->
+  <section class="photo-grid-section">
+    <div style="max-width: 500px;">
+      <div class="section-label">Around The World</div>
+      <h2 class="section-title" style="color:white;">The Places That<br><em style="font-style:italic; color: var(--gold-light);">Took My Breath Away</em></h2>
+      <p class="section-sub">Every image a memory. Every destination a story waiting to be yours.</p>
+    </div>
+    <div class="photo-mosaic">
+      <div class="mosaic-item m1">
+        <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80" alt="Santorini">
+        <div class="overlay"><div class="overlay-text">Santorini, Greece</div></div>
+      </div>
+      <div class="mosaic-item m2">
+        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80" alt="Paris">
+        <div class="overlay"><div class="overlay-text">Paris, France</div></div>
+      </div>
+      <div class="mosaic-item m3">
+        <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&q=80" alt="Japan">
+        <div class="overlay"><div class="overlay-text">Kyoto, Japan</div></div>
+      </div>
+      <div class="mosaic-item m4">
+        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80" alt="Italy">
+        <div class="overlay"><div class="overlay-text">Amalfi Coast, Italy</div></div>
+      </div>
+      <div class="mosaic-item m5">
+        <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=700&q=80" alt="Maldives">
+        <div class="overlay"><div class="overlay-text">Maldives</div></div>
+      </div>
+      <div class="mosaic-item m6">
+        <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=700&q=80" alt="Venice">
+        <div class="overlay"><div class="overlay-text">Venice, Italy</div></div>
+      </div>
+      <div class="mosaic-item m7">
+        <img src="https://images.unsplash.com/photo-1539108697893-b75f5e46c4fb?w=700&q=80" alt="Thailand">
+        <div class="overlay"><div class="overlay-text">Koh Phi Phi, Thailand</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="about-home">
+      <div class="about-img-wrap">
+        <img src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80" alt="Travel">
+      </div>
+      <div>
+        <div class="section-label">About TripZenix</div>
+        <h2 class="section-title">We Don't Just Plan Trips.<br><em style="font-style:italic; color:var(--gold);">We Create Memories.</em></h2>
+        <p class="section-sub" style="margin-bottom:1.5rem;">TripZenix was born from a deep love for exploration. Every destination on this site has been personally visited, vetted, and loved. We cut through the noise to bring you only the best — real recommendations, honest reviews, and plans that fit every budget.</p>
+        <p class="section-sub" style="margin-bottom:2rem;">Whether you're a backpacker on a tight budget or a luxury traveler seeking exclusive experiences, we have something crafted just for you.</p>
+        <button class="btn-primary" onclick="showPage('plans')">Browse Trip Plans →</button>
+        <div class="stat-row">
+          <div class="stat"><strong>40+</strong><span>Countries Visited</span></div>
+          <div class="stat"><strong>200+</strong><span>Happy Travelers</span></div>
+          <div class="stat"><strong>5★</strong><span>Average Rating</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter-banner">
+    <div class="nl-text">
+      <h3>Don't Miss A Single Adventure</h3>
+      <p>Get travel tips, destination guides, and exclusive deals straight to your inbox.</p>
+    </div>
+    <div class="nl-form">
+      <input class="nl-input" type="email" placeholder="your@email.com">
+      <button class="nl-btn">Subscribe</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">Trip<span>Zenix</span></div>
+        <p>Your guide to the world's most extraordinary places. Travel with purpose, travel with TripZenix.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><a onclick="showPage('home')">Home</a></li>
+          <li><a onclick="showPage('destinations')">Places I Visited</a></li>
+          <li><a onclick="showPage('services')">Services</a></li>
+          <li><a onclick="showPage('plans')">Trip Plans</a></li>
+          <li><a onclick="showPage('blog')">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a onclick="showPage('services'); switchTab('cars')">Car Rentals</a></li>
+          <li><a onclick="showPage('services'); switchTab('stays')">Cabins & Airbnbs</a></li>
+          <li><a onclick="showPage('plans')">Budget Trips</a></li>
+          <li><a onclick="showPage('plans')">Luxury Trips</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:hello@tripzenix.com">hello@tripzenix.com</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 TripZenix. All rights reserved.</p>
+      <p style="color:rgba(255,255,255,0.25);">Designed with ♡ for explorers.</p>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     DESTINATIONS / PLACES I VISITED
+══════════════════════════════════════ -->
+<div id="page-destinations" class="page">
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1800&q=80');"></div>
+    <div class="page-hero-content">
+      <div class="section-label" style="color: var(--gold-light);">Personally Visited</div>
+      <h1>Places I've Been &<br>Wholeheartedly Recommend</h1>
+      <p>Every destination below has been explored first-hand. No guesswork — just genuine love.</p>
+    </div>
+  </div>
+
+  <div class="dest-grid">
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=700&q=80" alt="Santorini">
+      <div class="dest-card-body">
+        <span class="dest-badge">Europe · Greece</span>
+        <h3>Santorini</h3>
+        <p>White-washed cliffs, volcanic beaches, and sunsets that will ruin every other sunset for you. Stay in Oia for the full magic.</p>
+        <div class="dest-rating">★★★★★ <span>Must Visit</span></div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1549144511-f099e773c147?w=700&q=80" alt="Bali">
+      <div class="dest-card-body">
+        <span class="dest-badge">Asia · Indonesia</span>
+        <h3>Bali, Indonesia</h3>
+        <p>From Ubud's rice terraces to Seminyak's surf — Bali is a spiritual and sensory reset unlike anywhere on Earth.</p>
+        <div class="dest-rating">★★★★★ <span>Must Visit</span></div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1542704792-e20f6c0bd9d3?w=700&q=80" alt="Iceland">
+      <div class="dest-card-body">
+        <span class="dest-badge">Europe · Iceland</span>
+        <h3>Iceland</h3>
+        <p>Aurora borealis, geysers, waterfalls, and black sand beaches — Iceland is nature at its most dramatic and raw.</p>
+        <div class="dest-rating">★★★★★ <span>Must Visit</span></div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=700&q=80" alt="India">
+      <div class="dest-card-body">
+        <span class="dest-badge">Asia · India</span>
+        <h3>Rajasthan, India</h3>
+        <p>Palaces, deserts, color, spice — Rajasthan is a sensory overload in the best possible way. Jaipur + Jodhpur is the perfect duo.</p>
+        <div class="dest-rating">★★★★☆ <span>Highly Recommended</span></div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=700&q=80" alt="Morocco">
+      <div class="dest-card-body">
+        <span class="dest-badge">Africa · Morocco</span>
+        <h3>Marrakech, Morocco</h3>
+        <p>Lose yourself in the medina's labyrinthine souks, then find peace in a rooftop riad garden. Magical and maddening.</p>
+        <div class="dest-rating">★★★★★ <span>Must Visit</span></div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=700&q=80" alt="Rio">
+      <div class="dest-card-body">
+        <span class="dest-badge">Americas · Brazil</span>
+        <h3>Rio de Janeiro</h3>
+        <p>Christ the Redeemer, Copacabana, Sugarloaf Mountain. Rio is alive — the samba never really stops here.</p>
+        <div class="dest-rating">★★★★☆ <span>Highly Recommended</span></div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=700&q=80" alt="Japan">
+      <div class="dest-card-body">
+        <span class="dest-badge">Asia · Japan</span>
+        <h3>Kyoto, Japan</h3>
+        <p>Ancient temples, bamboo groves, cherry blossom season, and the world's best ramen. Japan will make you fall in love with travel all over again.</p>
+        <div class="dest-rating">★★★★★ <span>Must Visit</span></div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1547970810-dc1eac37d174?w=700&q=80" alt="Patagonia">
+      <div class="dest-card-body">
+        <span class="dest-badge">Americas · Argentina</span>
+        <h3>Patagonia</h3>
+        <p>The end of the world is stunning. Torres del Paine, glaciers, and wilderness that makes you feel wonderfully small.</p>
+        <div class="dest-rating">★★★★★ <span>Must Visit</span></div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1455156218388-5e61b526818b?w=700&q=80" alt="Norway">
+      <div class="dest-card-body">
+        <span class="dest-badge">Europe · Norway</span>
+        <h3>Norwegian Fjords</h3>
+        <p>Geiranger, Flåm, Trolltunga — the fjords are Norway's crown jewels. Hike or cruise — both are life-changing.</p>
+        <div class="dest-rating">★★★★★ <span>Must Visit</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="newsletter-banner">
+    <div class="nl-text">
+      <h3>Want My Full Destination Guides?</h3>
+      <p>Subscribe for detailed city guides, hidden gems, and honest tips — free.</p>
+    </div>
+    <div class="nl-form">
+      <input class="nl-input" type="email" placeholder="your@email.com">
+      <button class="nl-btn">Get Guides</button>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border:none; padding:2rem 0 0;">
+      <p>© 2025 TripZenix · <a href="mailto:hello@tripzenix.com" style="color:var(--gold-light); text-decoration:none;">hello@tripzenix.com</a></p>
+      <p style="color:rgba(255,255,255,0.25);">Designed with ♡ for explorers.</p>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SERVICES PAGE
+══════════════════════════════════════ -->
+<div id="page-services" class="page">
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1800&q=80');"></div>
+    <div class="page-hero-content">
+      <div class="section-label" style="color: var(--gold-light);">Recommended Partners</div>
+      <h1>Car Rentals, Cabins<br>& Airbnbs</h1>
+      <p>Only partners I've personally tested or verified through trusted traveler networks.</p>
+    </div>
+  </div>
+
+  <div class="services-page">
+    <div class="services-intro">
+      <div class="section-label" style="justify-content:center;">Our Partners</div>
+      <h2 class="section-title" style="text-align:center;">Trusted Services for<br>Every Step of Your Journey</h2>
+      <p class="section-sub" style="margin: 0 auto; text-align:center;">I only feature services I genuinely recommend — no paid placements, just honest curation.</p>
+    </div>
+
+    <div class="service-tabs">
+      <button class="service-tab active" id="tab-cars" onclick="switchTab('cars')">🚗 Car Rentals</button>
+      <button class="service-tab" id="tab-stays" onclick="switchTab('stays')">🏡 Cabins & Airbnbs</button>
+    </div>
+
+    <!-- CARS -->
+    <div class="tab-panel active" id="panel-cars">
+      <div class="cars-grid">
+        <div class="car-card">
+          <img src="https://images.unsplash.com/photo-1485291571150-772bcfc10da5?w=700&q=80" alt="Car">
+          <div class="car-body">
+            <h4>Sixt — Premium Fleet</h4>
+            <p>Best choice for luxury vehicles across Europe. Excellent service, clean cars, flexible pickup. My go-to in Germany and France.</p>
+            <div class="price-tag">From $45 <small>/ day</small></div>
+          </div>
+        </div>
+        <div class="car-card">
+          <img src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=700&q=80" alt="Car">
+          <div class="car-body">
+            <h4>DiscoverCars — Best Value</h4>
+            <p>Compare hundreds of companies in one place. I saved up to 40% on long rentals using DiscoverCars in Iceland and Portugal.</p>
+            <div class="price-tag">From $22 <small>/ day</small></div>
+          </div>
+        </div>
+        <div class="car-card">
+          <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=700&q=80" alt="Car">
+          <div class="car-body">
+            <h4>Turo — Unique Rides</h4>
+            <p>Peer-to-peer car sharing. Perfect for road trips when you want something special — a vintage Mustang, a 4x4, or a convertible.</p>
+            <div class="price-tag">From $35 <small>/ day</small></div>
+          </div>
+        </div>
+        <div class="car-card">
+          <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=700&q=80" alt="Car">
+          <div class="car-body">
+            <h4>Hertz — Global Reliability</h4>
+            <p>Present in 150+ countries. When I need guaranteed availability in remote locations, Hertz delivers. Reliable loyalty program too.</p>
+            <div class="price-tag">From $38 <small>/ day</small></div>
+          </div>
+        </div>
+        <div class="car-card">
+          <img src="https://images.unsplash.com/photo-1471479917098-6f3b2a9e5a5f?w=700&q=80" alt="Car">
+          <div class="car-body">
+            <h4>Europcar — Europe Specialist</h4>
+            <p>Excellent for cross-border trips in Europe. One-way rentals from Paris to Barcelona or Rome to Amsterdam without issues.</p>
+            <div class="price-tag">From $30 <small>/ day</small></div>
+          </div>
+        </div>
+        <div class="car-card">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80" alt="Car">
+          <div class="car-body">
+            <h4>Economy Local Rentals</h4>
+            <p>Ask me directly! In many destinations like Bali, Morocco, or Georgia — local agencies beat all the big names on price and flexibility.</p>
+            <div class="price-tag">From $15 <small>/ day</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STAYS -->
+    <div class="tab-panel" id="panel-stays">
+      <div class="stays-grid">
+        <div class="stay-card">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700&q=80" alt="Cabin">
+          <div class="stay-body">
+            <h4>Alpine Log Cabin — Swiss Alps</h4>
+            <p>A stunning off-grid cabin I stayed in near Grindelwald. Wood-fired sauna, mountain views, starry skies. Absolute magic.</p>
+            <div class="price-tag">~$180 <small>/ night · Airbnb</small></div>
+          </div>
+        </div>
+        <div class="stay-card">
+          <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=700&q=80" alt="Villa">
+          <div class="stay-body">
+            <h4>Cliffside Villa — Santorini</h4>
+            <p>Private pool overlooking the caldera. Booked through Airbnb. Worth every penny — the sunset from the terrace is unreal.</p>
+            <div class="price-tag">~$350 <small>/ night · Airbnb</small></div>
+          </div>
+        </div>
+        <div class="stay-card">
+          <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=700&q=80" alt="Hotel">
+          <div class="stay-body">
+            <h4>Riad Kniza — Marrakech</h4>
+            <p>A historic riad in the medina with an incredible courtyard. Traditional architecture, peaceful oasis, world-class breakfast.</p>
+            <div class="price-tag">~$120 <small>/ night · Direct Booking</small></div>
+          </div>
+        </div>
+        <div class="stay-card">
+          <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700&q=80" alt="Lakeside Cabin">
+          <div class="stay-body">
+            <h4>Lakeside Cabin — Norway</h4>
+            <p>Kayaks at the door, aurora views at night. A remote cabin in Flåm that felt like being the only person in the world.</p>
+            <div class="price-tag">~$150 <small>/ night · Airbnb</small></div>
+          </div>
+        </div>
+        <div class="stay-card">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80" alt="Maldives">
+          <div class="stay-body">
+            <h4>Overwater Bungalow — Maldives</h4>
+            <p>Worth saving up for. Wake up to turquoise water, step off your deck into the ocean. Pure paradise. Stayed at Kurumba Resort.</p>
+            <div class="price-tag">~$600 <small>/ night · Resort</small></div>
+          </div>
+        </div>
+        <div class="stay-card">
+          <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=700&q=80" alt="Treehouse">
+          <div class="stay-body">
+            <h4>Jungle Treehouse — Bali</h4>
+            <p>Surrounded by rice paddies and jungle sounds in Ubud. Woke up to monkeys in the trees. An unforgettable Airbnb experience.</p>
+            <div class="price-tag">~$95 <small>/ night · Airbnb</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="newsletter-banner" style="background: var(--deep);">
+    <div class="nl-text">
+      <h3>Need a Personalized Recommendation?</h3>
+      <p>Tell me your destination and I'll point you toward the best places to stay and drive.</p>
+    </div>
+    <button class="btn-primary" onclick="openModal()" style="flex-shrink:0;">Contact Me</button>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border:none; padding:2rem 0 0;">
+      <p>© 2025 TripZenix · <a href="mailto:hello@tripzenix.com" style="color:var(--gold-light); text-decoration:none;">hello@tripzenix.com</a></p>
+      <p style="color:rgba(255,255,255,0.25);">Designed with ♡ for explorers.</p>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     TRIP PLANS PAGE
+══════════════════════════════════════ -->
+<div id="page-plans" class="page">
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1800&q=80');"></div>
+    <div class="page-hero-content">
+      <div class="section-label" style="color: var(--gold-light);">Tailored For You</div>
+      <h1>Full Trip Plans<br>For Every Budget</h1>
+      <p>Tell me your budget — I'll craft the perfect itinerary. Simple as that.</p>
+    </div>
+  </div>
+
+  <div class="plans-page">
+    <div class="plans-intro">
+      <div class="section-label" style="justify-content:center;">Choose Your Budget</div>
+      <h2 class="section-title" style="text-align:center;">Experiences at Every<br>Price Point</h2>
+      <p class="section-sub" style="text-align:center; margin:0 auto;">Filter by your budget to find the perfect plan. All plans include accommodation, activities, transport tips, and insider knowledge.</p>
+    </div>
+
+    <div class="budget-selector">
+      <div class="budget-btns">
+        <button class="budget-btn active" onclick="filterPlans('all', this)">All Plans</button>
+        <button class="budget-btn" onclick="filterPlans('budget', this)">💚 Budget (Under $1,000)</button>
+        <button class="budget-btn" onclick="filterPlans('mid', this)">🧡 Mid-Range ($1,000–$3,000)</button>
+        <button class="budget-btn" onclick="filterPlans('luxury', this)">💜 Luxury ($3,000+)</button>
+      </div>
+    </div>
+
+    <!-- PLAN CARDS -->
+    <div id="plan-list">
+
+    <div class="plan-card" data-tier="budget">
+      <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=700&q=80" alt="Thailand">
+      <div class="plan-body">
+        <span class="plan-tier tier-budget">Budget Plan</span>
+        <h3>Thailand on a Shoestring — 10 Days</h3>
+        <p>Bangkok street food, Chiang Mai temples, and the islands. Hostels, tuk-tuks, and night markets. A legendary trip without breaking the bank.</p>
+        <div class="plan-details">
+          <div class="plan-detail"><strong>10 Days</strong>Duration</div>
+          <div class="plan-detail"><strong>Thailand</strong>Destination</div>
+          <div class="plan-detail"><strong>2 Pax</strong>Best For</div>
+          <div class="plan-detail"><strong>Hostels + Budget Hotels</strong>Stay</div>
+        </div>
+        <div class="plan-price">$650 <small>per person</small></div>
+        <button class="contact-plan-btn" onclick="openModal()">Get This Plan →</button>
+      </div>
+    </div>
+
+    <div class="plan-card" data-tier="budget">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Portugal">
+      <div class="plan-body">
+        <span class="plan-tier tier-budget">Budget Plan</span>
+        <h3>Portugal Road Trip — 7 Days</h3>
+        <p>Lisbon to Porto via Sintra, Óbidos, and Nazaré. Affordable wine, fresh seafood, and one of Europe's most underrated countries.</p>
+        <div class="plan-details">
+          <div class="plan-detail"><strong>7 Days</strong>Duration</div>
+          <div class="plan-detail"><strong>Portugal</strong>Destination</div>
+          <div class="plan-detail"><strong>Couples/Solo</strong>Best For</div>
+          <div class="plan-detail"><strong>Guesthouses</strong>Stay</div>
+        </div>
+        <div class="plan-price">$780 <small>per person</small></div>
+        <button class="contact-plan-btn" onclick="openModal()">Get This Plan →</button>
+      </div>
+    </div>
+
+    <div class="plan-card" data-tier="mid">
+      <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=700&q=80" alt="Santorini">
+      <div class="plan-body">
+        <span class="plan-tier tier-mid">Mid-Range Plan</span>
+        <h3>Greek Island Hopping — 12 Days</h3>
+        <p>Athens, Mykonos, Santorini. Fast ferries, boutique hotels, sunset dinners by the caldera. The definitive Mediterranean escape.</p>
+        <div class="plan-details">
+          <div class="plan-detail"><strong>12 Days</strong>Duration</div>
+          <div class="plan-detail"><strong>Greece</strong>Destination</div>
+          <div class="plan-detail"><strong>Couples</strong>Best For</div>
+          <div class="plan-detail"><strong>Boutique Hotels</strong>Stay</div>
+        </div>
+        <div class="plan-price">$1,900 <small>per person</small></div>
+        <button class="contact-plan-btn" onclick="openModal()">Get This Plan →</button>
+      </div>
+    </div>
+
+    <div class="plan-card" data-tier="mid">
+      <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=700&q=80" alt="Japan">
+      <div class="plan-body">
+        <span class="plan-tier tier-mid">Mid-Range Plan</span>
+        <h3>Japan Highlights — 14 Days</h3>
+        <p>Tokyo → Kyoto → Osaka + a bullet train adventure. Cherry blossoms or autumn leaves depending on season. Includes a ryokan stay.</p>
+        <div class="plan-details">
+          <div class="plan-detail"><strong>14 Days</strong>Duration</div>
+          <div class="plan-detail"><strong>Japan</strong>Destination</div>
+          <div class="plan-detail"><strong>All Types</strong>Best For</div>
+          <div class="plan-detail"><strong>Hotels + Ryokan</strong>Stay</div>
+        </div>
+        <div class="plan-price">$2,600 <small>per person</small></div>
+        <button class="contact-plan-btn" onclick="openModal()">Get This Plan →</button>
+      </div>
+    </div>
+
+    <div class="plan-card" data-tier="luxury">
+      <img src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=700&q=80" alt="Maldives">
+      <div class="plan-body">
+        <span class="plan-tier tier-luxury">Luxury Plan</span>
+        <h3>Maldives Overwater Escape — 8 Days</h3>
+        <p>Private seaplane transfer, overwater bungalow, snorkeling, spa, private dinners on the beach. Complete seclusion and pure indulgence.</p>
+        <div class="plan-details">
+          <div class="plan-detail"><strong>8 Days</strong>Duration</div>
+          <div class="plan-detail"><strong>Maldives</strong>Destination</div>
+          <div class="plan-detail"><strong>Honeymoon/Couples</strong>Best For</div>
+          <div class="plan-detail"><strong>5★ Overwater</strong>Stay</div>
+        </div>
+        <div class="plan-price">$5,200 <small>per person</small></div>
+        <button class="contact-plan-btn" onclick="openModal()">Get This Plan →</button>
+      </div>
+    </div>
+
+    <div class="plan-card" data-tier="luxury">
+      <img src="https://images.unsplash.com/photo-1547970810-dc1eac37d174?w=700&q=80" alt="Patagonia">
+      <div class="plan-body">
+        <span class="plan-tier tier-luxury">Luxury Plan</span>
+        <h3>Patagonia Expedition — 15 Days</h3>
+        <p>Private guides, luxury lodges, helicopter tours over glaciers, and trekking Torres del Paine. The adventure of a lifetime, with zero compromise.</p>
+        <div class="plan-details">
+          <div class="plan-detail"><strong>15 Days</strong>Duration</div>
+          <div class="plan-detail"><strong>Chile/Argentina</strong>Destination</div>
+          <div class="plan-detail"><strong>Adventure Seekers</strong>Best For</div>
+          <div class="plan-detail"><strong>Luxury Lodges</strong>Stay</div>
+        </div>
+        <div class="plan-price">$7,800 <small>per person</small></div>
+        <button class="contact-plan-btn" onclick="openModal()">Get This Plan →</button>
+      </div>
+    </div>
+
+    </div><!-- /plan-list -->
+
+    <div style="text-align:center; padding: 3rem 0;">
+      <p style="color:var(--muted); margin-bottom:1.5rem; font-size:0.95rem;">Don't see what you're looking for? Every trip can be fully customized.</p>
+      <button class="btn-primary" onclick="openModal()">Request a Custom Plan</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom" style="border:none; padding:2rem 0 0; background:var(--deep); margin:-4rem -3rem -2rem; padding: 2rem 3rem;">
+      <p>© 2025 TripZenix · <a href="mailto:hello@tripzenix.com" style="color:var(--gold-light); text-decoration:none;">hello@tripzenix.com</a></p>
+      <p style="color:rgba(255,255,255,0.25);">Designed with ♡ for explorers.</p>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     BLOG PAGE
+══════════════════════════════════════ -->
+<div id="page-blog" class="page">
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=1800&q=80');"></div>
+    <div class="page-hero-content">
+      <div class="section-label" style="color: var(--gold-light);">Travel Stories</div>
+      <h1>The TripZenix Blog</h1>
+      <p>Real stories, honest tips, and the kind of advice you only get from someone who's actually been there.</p>
+    </div>
+  </div>
+
+  <div class="blog-page">
+    <div class="blog-grid">
+      <div class="blog-main">
+
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1542704792-e20f6c0bd9d3?w=500&q=80" alt="Iceland">
+          <div class="blog-card-body">
+            <div class="blog-cat">Destination Guide</div>
+            <h3>Iceland in Winter: The Complete Northern Lights Guide</h3>
+            <p>Everything you need to know about chasing the aurora — best locations, timing, photography tips, and where to stay. I spent 10 days there in January and came back changed.</p>
+            <div class="blog-meta">January 15, 2025 · 8 min read</div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1549144511-f099e773c147?w=500&q=80" alt="Bali">
+          <div class="blog-card-body">
+            <div class="blog-cat">Budget Travel</div>
+            <h3>How to Do Bali for Under $50/Day (Without Missing Out)</h3>
+            <p>Scooter rentals, warungs, free temple visits, and free beaches. Bali is genuinely one of the best budget destinations in the world — here's my full breakdown.</p>
+            <div class="blog-meta">February 3, 2025 · 10 min read</div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=500&q=80" alt="India">
+          <div class="blog-card-body">
+            <div class="blog-cat">Culture & Food</div>
+            <h3>First Time in India? Here's What Nobody Tells You</h3>
+            <p>The chaos, the colors, the food, the kindness. India is overwhelming and wonderful in equal measure. My honest first-timer's guide to navigating Rajasthan.</p>
+            <div class="blog-meta">March 12, 2025 · 12 min read</div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?w=500&q=80" alt="Morocco">
+          <div class="blog-card-body">
+            <div class="blog-cat">Insider Tips</div>
+            <h3>Surviving and Thriving in Marrakech's Medina</h3>
+            <p>How to navigate the souks, avoid tourist traps, eat well for cheap, and actually enjoy the chaos. Marrakech is unlike anywhere else — here's how to love it.</p>
+            <div class="blog-meta">April 8, 2025 · 9 min read</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="blog-sidebar">
+        <!-- SOCIAL LINKS -->
+        <div class="sidebar-widget">
+          <div class="widget-title">Follow the Adventure</div>
+          <div class="social-links">
+            <a href="#" class="social-link">
+              <span class="social-icon">📸</span>
+              <div>
+                <div style="font-weight:500;">Instagram</div>
+                <div style="font-size:0.75rem; color:var(--muted);">@tripzenix — Daily travel shots</div>
+              </div>
+            </a>
+            <a href="#" class="social-link">
+              <span class="social-icon">🎵</span>
+              <div>
+                <div style="font-weight:500;">TikTok</div>
+                <div style="font-size:0.75rem; color:var(--muted);">@tripzenix — Travel reels & vlogs</div>
+              </div>
+            </a>
+            <a href="#" class="social-link">
+              <span class="social-icon">▶️</span>
+              <div>
+                <div style="font-weight:500;">YouTube</div>
+                <div style="font-size:0.75rem; color:var(--muted);">TripZenix — Full documentaries</div>
+              </div>
+            </a>
+            <a href="#" class="social-link">
+              <span class="social-icon">🐦</span>
+              <div>
+                <div style="font-weight:500;">Twitter / X</div>
+                <div style="font-size:0.75rem; color:var(--muted);">@tripzenix — Travel threads</div>
+              </div>
+            </a>
+            <a href="#" class="social-link">
+              <span class="social-icon">💼</span>
+              <div>
+                <div style="font-weight:500;">Pinterest</div>
+                <div style="font-size:0.75rem; color:var(--muted);">TripZenix — Itinerary boards</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- EMAIL WIDGET -->
+        <div class="email-widget">
+          <h4>✉️ Get In Touch</h4>
+          <p>Questions about a destination, a service, or want a custom trip plan? I reply to every email personally.</p>
+          <a href="mailto:hello@tripzenix.com">hello@tripzenix.com</a>
+          <br><br>
+          <button class="contact-plan-btn" onclick="openModal()" style="width:100%; margin:0;">Send a Message</button>
+        </div>
+
+        <!-- RECENT POSTS -->
+        <div class="sidebar-widget">
+          <div class="widget-title">Popular Posts</div>
+          <div style="display:flex; flex-direction:column; gap:1rem;">
+            <div style="display:flex; gap:0.8rem; align-items:start;">
+              <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=100&q=80" style="width:60px; height:60px; object-fit:cover; flex-shrink:0;" alt="">
+              <div>
+                <div style="font-size:0.82rem; font-weight:500; margin-bottom:0.2rem; line-height:1.3;">The Perfect 2 Weeks in Japan</div>
+                <div style="font-size:0.72rem; color:var(--muted);">14 min read</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:0.8rem; align-items:start;">
+              <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&q=80" style="width:60px; height:60px; object-fit:cover; flex-shrink:0;" alt="">
+              <div>
+                <div style="font-size:0.82rem; font-weight:500; margin-bottom:0.2rem; line-height:1.3;">Best Swiss Mountain Cabins</div>
+                <div style="font-size:0.72rem; color:var(--muted);">7 min read</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:0.8rem; align-items:start;">
+              <img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=100&q=80" style="width:60px; height:60px; object-fit:cover; flex-shrink:0;" alt="">
+              <div>
+                <div style="font-size:0.82rem; font-weight:500; margin-bottom:0.2rem; line-height:1.3;">Rio for First-Timers: Safety & Fun</div>
+                <div style="font-size:0.72rem; color:var(--muted);">9 min read</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUICK CONTACT -->
+        <div class="sidebar-widget" style="background: var(--sand);">
+          <div class="widget-title">Plan With Me</div>
+          <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem; line-height:1.6;">Ready to start planning? I'll help you put together an itinerary that fits your budget, timeline, and travel style.</p>
+          <button class="btn-primary" style="width:100%;" onclick="openModal()">Start Planning</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="newsletter-banner">
+    <div class="nl-text">
+      <h3>New Articles Every Week</h3>
+      <p>Join thousands of travelers getting real, useful content — no spam, ever.</p>
+    </div>
+    <div class="nl-form">
+      <input class="nl-input" type="email" placeholder="your@email.com">
+      <button class="nl-btn">Subscribe</button>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border:none; padding:2rem 0 0; background:var(--deep); margin:-0; padding: 2rem 3rem;">
+      <p>© 2025 TripZenix · <a href="mailto:hello@tripzenix.com" style="color:var(--gold-light); text-decoration:none;">hello@tripzenix.com</a></p>
+      <p style="color:rgba(255,255,255,0.25);">Designed with ♡ for explorers.</p>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     CONTACT MODAL
+══════════════════════════════════════ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>Let's Plan Your Trip</h3>
+    <p>Fill in the details below and I'll get back to you within 24 hours with personalized recommendations.</p>
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" placeholder="Jane Smith">
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" placeholder="jane@email.com">
+    </div>
+    <div class="form-group">
+      <label>Budget Per Person</label>
+      <select>
+        <option>Under $1,000</option>
+        <option>$1,000 – $2,000</option>
+        <option>$2,000 – $5,000</option>
+        <option>$5,000+</option>
+        <option>Flexible / Open</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Dream Destination(s)</label>
+      <input type="text" placeholder="Japan, Iceland, Maldives...">
+    </div>
+    <div class="form-group">
+      <label>Tell Me More</label>
+      <textarea placeholder="Travel dates, group size, interests, anything that matters to you..."></textarea>
+    </div>
+    <button class="form-submit" onclick="submitForm()">Send My Request ✈️</button>
+  </div>
+</div>
+
+
+<script>
+// ─── PAGE ROUTING ───
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + id);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ─── SERVICES TABS ───
+function switchTab(name) {
+  document.querySelectorAll('.service-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+}
+
+// ─── PLAN FILTER ───
+function filterPlans(tier, btn) {
+  document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.plan-card').forEach(card => {
+    if (tier === 'all' || card.dataset.tier === tier) {
+      card.style.display = 'grid';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// ─── MODAL ───
+function openModal() {
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+function submitForm() {
+  alert('Thank you! I\'ll be in touch within 24 hours ✈️');
+  closeModal();
+}
+</script>
+</body>
+</html>
