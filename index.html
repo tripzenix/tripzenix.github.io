@@ -1382,7 +1382,7 @@ footer {
         <!-- QUICK CONTACT -->
         <div class="sidebar-widget" style="background: var(--sand);">
           <div class="widget-title">Plan With Me</div>
-          <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem; line-height:1.6;">Ready to start planning? I'll help you put together an itinerary that fits your budget, timeline, and travel style.</p>
+          <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem; line-height:1.6;">Ready to start planning? I'll help you put together an itinerary that fits your budget for free, timeline, and travel style.</p>
           <button class="btn-primary" style="width:100%;" onclick="openModal()">Start Planning</button>
         </div>
       </div>
@@ -1511,6 +1511,23 @@ async function submitForm() {
        alert('Something went wrong. Please email me directly at lotfifrage21@gmail.com');
      }
    }
+  async function subscribeEmail(inputId) {
+  const email = document.getElementById(inputId).value;
+
+  if (!email || !email.includes('@')) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+
+  await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email })
+  });
+
+  document.getElementById(inputId).value = '';
+  alert('You\'re subscribed! Welcome to the TripZenix community ✈️');
+}
 </script>
 </body>
 </html>
